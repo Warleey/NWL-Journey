@@ -1,103 +1,160 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planejador de viajem</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-
-    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/locale/pt-br.js"></script>
-    <script>dayjs.locale('pt-br')</script>
-
-
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Levora — Evolua com consistência</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 </head>
-
 <body>
-    <div id="app">
-        <form onsubmit="salvarAtividade(event)">
 
-            <div id="place" class="card-bg">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M16.6668 8.33329C16.6668 13.3333 10.0002 18.3333 10.0002 18.3333C10.0002 18.3333 3.3335 13.3333 3.3335 8.33329C3.3335 6.56518 4.03588 4.86949 5.28612 3.61925C6.53636 2.36901 8.23205 1.66663 10.0002 1.66663C11.7683 1.66663 13.464 2.36901 14.7142 3.61925C15.9645 4.86949 16.6668 6.56518 16.6668 8.33329Z"
-                        stroke="#A1A1AA"
-                        style="stroke:#A1A1AA;stroke:color(display-p3 0.6314 0.6314 0.6667);stroke-opacity:1;"
-                        stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
-                    <path
-                        d="M10.0002 10.8333C11.3809 10.8333 12.5002 9.714 12.5002 8.33329C12.5002 6.95258 11.3809 5.83329 10.0002 5.83329C8.61945 5.83329 7.50016 6.95258 7.50016 8.33329C7.50016 9.714 8.61945 10.8333 10.0002 10.8333Z"
-                        stroke="#A1A1AA"
-                        style="stroke:#A1A1AA;stroke:color(display-p3 0.6314 0.6314 0.6667);stroke-opacity:1;"
-                        stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
+  <!-- ========== BACKGROUND BLOBS ========== -->
+  <div class="bg-blob blob-1" aria-hidden="true"></div>
+  <div class="bg-blob blob-2" aria-hidden="true"></div>
+  <div class="bg-blob blob-3" aria-hidden="true"></div>
 
-                São Paulo, SP
-            </div>
+  <!-- ========== TOAST NOTIFICATION ========== -->
+  <div id="toast" class="toast" role="alert" aria-live="polite"></div>
 
-            <div class="fields">
-                <div class="field-wrapper">
-
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M10.4882 2.15502C10.1757 1.84244 9.75183 1.66678 9.30984 1.66669H3.33317C2.89114 1.66669 2.46722 1.84228 2.15466 2.15484C1.8421 2.4674 1.6665 2.89133 1.6665 3.33335V9.31002C1.6666 9.75201 1.84225 10.1759 2.15484 10.4884L9.40817 17.7417C9.78693 18.1181 10.2992 18.3293 10.8332 18.3293C11.3671 18.3293 11.8794 18.1181 12.2582 17.7417L17.7415 12.2584C18.1179 11.8796 18.3291 11.3673 18.3291 10.8334C18.3291 10.2994 18.1179 9.78712 17.7415 9.40835L10.4882 2.15502Z"
-                            stroke="#A1A1AA"
-                            style="stroke:#A1A1AA;stroke:color(display-p3 0.6314 0.6314 0.6667);stroke-opacity:1;"
-                            stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
-                        <path
-                            d="M6.24984 6.66669C6.47996 6.66669 6.6665 6.48014 6.6665 6.25002C6.6665 6.0199 6.47996 5.83335 6.24984 5.83335C6.01972 5.83335 5.83317 6.0199 5.83317 6.25002C5.83317 6.48014 6.01972 6.66669 6.24984 6.66669Z"
-                            stroke="#A1A1AA"
-                            style="stroke:#A1A1AA;stroke:color(display-p3 0.6314 0.6314 0.6667);stroke-opacity:1;"
-                            stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-
-                    <input type="text" placeholder="Qual a atividade?" name="atividade" required>
-                </div>
-
-                <div class="field-wrapper">
-
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M6.66667 1.66669V5.00002M13.3333 1.66669V5.00002M2.5 8.33335H17.5M4.16667 3.33335H15.8333C16.7538 3.33335 17.5 4.07955 17.5 5.00002V16.6667C17.5 17.5872 16.7538 18.3334 15.8333 18.3334H4.16667C3.24619 18.3334 2.5 17.5872 2.5 16.6667V5.00002C2.5 4.07955 3.24619 3.33335 4.16667 3.33335Z"
-                            stroke="#A1A1AA"
-                            style="stroke:#A1A1AA;stroke:color(display-p3 0.6314 0.6314 0.6667);stroke-opacity:1;"
-                            stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-
-                    <select name="dia">
-                        <option value="2024-03-01">01 de Janeiro</option>
-                    </select>
-                </div>
-
-                <div class="field-wrapper">
-
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M9.99984 5.00002V10L13.3332 11.6667M18.3332 10C18.3332 14.6024 14.6022 18.3334 9.99984 18.3334C5.39746 18.3334 1.6665 14.6024 1.6665 10C1.6665 5.39765 5.39746 1.66669 9.99984 1.66669C14.6022 1.66669 18.3332 5.39765 18.3332 10Z"
-                            stroke="#A1A1AA"
-                            style="stroke:#A1A1AA;stroke:color(display-p3 0.6314 0.6314 0.6667);stroke-opacity:1;"
-                            stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-
-                    <select name="hora">
-                        <option value="10:30">10:30</option>
-                    </select>
-                </div>
-            </div>
-
-            <button>Salvar atividade</button>
-        </form>
-
-        <main>
-            <h1> Atividades </h1>
-            <section></section>
-        </main>
-        <script src="./script.js"></script>
+  <!-- ========== XP LEVEL-UP OVERLAY ========== -->
+  <div id="levelUpOverlay" class="level-up-overlay" aria-hidden="true">
+    <div class="level-up-card">
+      <div class="level-up-icon">🏆</div>
+      <h2 class="level-up-title">Nível Acima!</h2>
+      <p class="level-up-desc">Parabéns, você alcançou o <strong id="levelUpName"></strong>!</p>
+      <button class="btn-level-close" onclick="App.closeLevelUp()">Continuar</button>
     </div>
-</body>
+  </div>
 
+  <!-- ========== MAIN WRAPPER ========== -->
+  <main class="wrapper" role="main">
+
+    <!-- ===== HEADER ===== -->
+    <header class="app-header">
+      <div class="header-brand">
+        <span class="brand-icon" aria-hidden="true">✦</span>
+        <div class="brand-text">
+          <h1 class="brand-name">Levora</h1>
+          <span class="brand-subtitle">Evolua com consistência.</span>
+        </div>
+      </div>
+      <div class="header-xp">
+        <div class="xp-info">
+          <span class="xp-level-badge" id="levelBadge">Nível 1</span>
+          <span class="xp-label" id="levelName">Iniciante</span>
+        </div>
+        <div class="xp-bar-wrap" title="Progresso de XP">
+          <div class="xp-bar-track">
+            <div class="xp-bar-fill" id="xpBarFill"></div>
+          </div>
+          <span class="xp-text" id="xpText">0 XP</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===== PROGRESS SECTION ===== -->
+    <section class="progress-section" aria-label="Progresso geral">
+      <div class="progress-header">
+        <span class="progress-label">Progresso das tarefas</span>
+        <span class="progress-pct" id="progressPct">0%</span>
+      </div>
+      <div class="progress-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="progressBar">
+        <div class="progress-fill" id="progressFill"></div>
+        <div class="progress-glow" id="progressGlow"></div>
+      </div>
+      <div class="progress-stats">
+        <span id="statTotal">0 tarefas</span>
+        <span id="statDone">0 concluídas</span>
+        <span id="statPending">0 pendentes</span>
+      </div>
+    </section>
+
+    <!-- ===== ADD TASK FORM ===== -->
+    <section class="add-section" aria-label="Adicionar tarefa">
+      <form id="taskForm" class="task-form" novalidate>
+        <div class="form-row form-row--main">
+          <div class="input-wrap">
+            <span class="input-icon" aria-hidden="true">📝</span>
+            <input
+              type="text"
+              id="taskInput"
+              class="task-input"
+              placeholder="O que precisa ser feito?"
+              maxlength="120"
+              autocomplete="off"
+              aria-label="Nova tarefa"
+            />
+            <span class="char-counter" id="charCounter">0/120</span>
+          </div>
+          <button type="submit" class="btn btn-add" aria-label="Adicionar tarefa">
+            <span class="btn-add-icon" aria-hidden="true">+</span>
+            <span class="btn-add-text">Adicionar</span>
+          </button>
+        </div>
+
+        <div class="form-row form-row--meta">
+          <div class="select-wrap">
+            <label for="prioritySelect" class="meta-label">Prioridade</label>
+            <select id="prioritySelect" class="meta-select" aria-label="Prioridade da tarefa">
+              <option value="medium">🟡 Média</option>
+              <option value="high">🔴 Alta</option>
+              <option value="low">🟢 Baixa</option>
+            </select>
+          </div>
+          <div class="date-wrap">
+            <label for="dateInput" class="meta-label">Data (opcional)</label>
+            <input type="date" id="dateInput" class="meta-input" aria-label="Data da tarefa" />
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <!-- ===== FILTERS & ACTIONS ===== -->
+    <section class="filter-section" aria-label="Filtros e ações">
+      <div class="filter-group" role="group" aria-label="Filtrar tarefas">
+        <button class="filter-btn active" data-filter="all">Todas</button>
+        <button class="filter-btn" data-filter="pending">Pendentes</button>
+        <button class="filter-btn" data-filter="done">Concluídas</button>
+      </div>
+      <div class="action-group">
+        <span class="remaining-count" id="remainingCount">0 restantes</span>
+        <button class="btn-clear" id="clearDoneBtn" aria-label="Limpar tarefas concluídas">
+          Limpar concluídas
+        </button>
+      </div>
+    </section>
+
+    <!-- ===== SORT BAR ===== -->
+    <div class="sort-bar">
+      <span class="sort-label">Ordenar por:</span>
+      <button class="sort-btn active" data-sort="created">Criação</button>
+      <button class="sort-btn" data-sort="priority">Prioridade</button>
+      <button class="sort-btn" data-sort="date">Data</button>
+      <button class="sort-btn" data-sort="alpha">A–Z</button>
+    </div>
+
+    <!-- ===== TASK LIST ===== -->
+    <section class="list-section" aria-label="Lista de tarefas">
+      <ul class="task-list" id="taskList" role="list" aria-live="polite" aria-label="Tarefas"></ul>
+
+      <!-- EMPTY STATE -->
+      <div class="empty-state" id="emptyState" aria-hidden="true">
+        <div class="empty-icon" aria-hidden="true">🎯</div>
+        <p class="empty-title">Nenhuma missão ativa</p>
+        <p class="empty-sub">Comece adicionando sua primeira tarefa e evolua hoje.</p>
+      </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="app-footer">
+      <p>&copy; <span id="footerYear"></span> Warley Almeida &mdash; Todos os direitos reservados.</p>
+    </footer>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
 </html>
